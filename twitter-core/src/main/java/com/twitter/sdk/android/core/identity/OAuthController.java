@@ -17,6 +17,7 @@
 
 package com.twitter.sdk.android.core.identity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -106,11 +107,12 @@ class OAuthController implements OAuthWebViewClient.Listener {
     /**
      * Package private for testing.
      */
+    @SuppressLint("SetJavaScriptEnabled")
     void setUpWebView(WebView webView, WebViewClient webViewClient, String url,
                       WebChromeClient webChromeClient) {
         final WebSettings webSettings = webView.getSettings();
         webSettings.setAllowFileAccess(false);
-        webSettings.setJavaScriptEnabled(false);
+        webSettings.setJavaScriptEnabled(true);
         webSettings.setSaveFormData(false);
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);

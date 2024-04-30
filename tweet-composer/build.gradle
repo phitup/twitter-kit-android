@@ -16,6 +16,7 @@
  */
 
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -66,14 +67,28 @@ dependencies {
     implementation dependency.picasso
     implementation dependency.tweetText
 
-    androidTestCompile dependency.mockito
-    androidTestCompile dependency.dexmakerMockito
+    androidTestImplementation dependency.mockito
+    androidTestImplementation dependency.dexmakerMockito
 
-    testCompile dependency.mockito
-    testCompile dependency.junit
-    testCompile dependency.retrofitMock
-    testCompile(dependency.robolectric) {
+    testImplementation dependency.mockito
+    testImplementation dependency.junit
+    testImplementation dependency.retrofitMock
+    testImplementation(dependency.robolectric) {
         exclude group: 'commons-logging', module: 'commons-logging'
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.findByName('release')
+                groupId = 'com.github.phitup'
+                artifactId = 'twitter-kit-android'
+                version = '3.3.0'
+            }
+        }
     }
 }
