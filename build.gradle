@@ -26,6 +26,7 @@ subprojects { Project subproject ->
         }
         dependencies {
             classpath dependency.androidGradlePlugin
+            classpath 'com.android.tools.build:gradle:7.0.0'
         }
     }
 
@@ -36,7 +37,6 @@ subprojects { Project subproject ->
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.2.1'
+wrapper {
+    gradleVersion = '7.2'
 }
-
