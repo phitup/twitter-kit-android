@@ -16,6 +16,7 @@
  */
 
 apply from: rootProject.file('dependencies.gradle')
+apply plugin: 'maven-publish'
 
 subprojects { Project subproject ->
     buildscript {
@@ -38,5 +39,16 @@ subprojects { Project subproject ->
 
 task wrapper(type: Wrapper) {
     gradleVersion = '4.2.1'
+}
 
+afterEvaluate {
+    android.libraryVariants.each{variant -> 
+        publishing.publications.create(variant.name, MaventPublication){
+            from components.findByName(variant.name)
+
+            groupId = 'com.github.phitup'
+            artifactId = 'twitter-kit-android'
+            version = '3.3.0'            
+        }
+    }
 }
